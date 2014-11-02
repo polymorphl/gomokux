@@ -405,16 +405,12 @@ int Gomoku::ruleOfThree(const t_flag& team) {
 
 int Gomoku::checkRules(const t_flag& team) {
 //    updateMapRule(team, coord);
-    if (_ruleOfThree && ruleOfThree(team)) {
-        std::cout << "Mauvais placement, essaye encore"<< std::endl;
+    if (_ruleOfThree && ruleOfThree(team))
         return 1;
-    }
     checkEat(team);
     _mapRule[_playedY][_playedX] = team;
-    if (checkWin(team)) {
-        std::cout << "Check win fail" << std::endl;
+    if (checkWin(team))
         return -1;
-    }
     _winner = team;
     return 0;
 }

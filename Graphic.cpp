@@ -58,18 +58,34 @@ void Graphic::handleGame() {
 }
 
 void Graphic::displayMenu(const int& active) {
-    for (int i = 0; i != 3 ; i++) {
-        SDL_Rect rect;
-        rect.x = 125;
-        rect.y = 250 + i * 150;
-        rect.h = 100;
-        rect.w = 500;
-        if (active == i + 1)
-            SDL_FillRect(_screen, &rect, SDL_MapRGB(_screen->format, 255, 255, 255));
-        else
-            SDL_FillRect(_screen, &rect, SDL_MapRGB(_screen->format, 0, 0, 255));
-        SDL_Flip(_screen);
-    }
+    std::ostringstream oss;
+    oss << "assets/menu" << active << ".png";
+    SDL_Surface *deep = IMG_Load("assets/menu.png");
+    SDL_Surface *activ = IMG_Load(oss.str().c_str());
+    SDL_Rect posDeep;
+    SDL_Rect posActive;
+    
+    posDeep.x = 0;
+    posDeep.y = 0;
+    posActive.x = 125;
+    posActive.y = 250 + ((active - 1) * 150);
+    SDL_BlitSurface(deep, NULL, _screen, &posDeep);
+    SDL_BlitSurface(activ, NULL, _screen, &posActive);
+    SDL_Flip(_screen);
+    
+//
+//    for (int i = 0; i != 3 ; i++) {
+//        SDL_Rect rect;
+//        rect.x = 125;
+//        rect.y = 250 + i * 150;
+//        rect.h = 100;
+//        rect.w = 500;
+//        if (active == i + 1)
+//            SDL_FillRect(_screen, &rect, SDL_MapRGB(_screen->format, 255, 255, 255));
+//        else
+//            SDL_FillRect(_screen, &rect, SDL_MapRGB(_screen->format, 0, 0, 255));
+//        SDL_Flip(_screen);
+//    }
 }
 
 void Graphic::activeUpdate(int *active) {
@@ -132,7 +148,7 @@ void Graphic::drawPawn() {
     int nbPion;
     int cpt = 0;
     
-    nbPion = getNbPion();
+    nbPion = getNbPion() + 2;
     SDL_Rect position[nbPion];    
     for (int y = 0; y != 19; y++) {
         for (int x = 0; x != 19; x++) {

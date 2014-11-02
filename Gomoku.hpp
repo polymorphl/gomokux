@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <sstream>
 #include "Exception.hpp"
 #include "Player.hpp"
 
