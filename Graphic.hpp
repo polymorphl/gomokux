@@ -43,7 +43,6 @@ private:
     int catchClick();
     int transformInCase(const t_flag&);
     void updateMouse(const t_flag&);
-//    Gomoku *game;
     SDL_Event *_event;
     int _height;
     int _width;

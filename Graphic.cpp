@@ -2,7 +2,6 @@
 #include "Graphic.hpp"
 
 Graphic::Graphic() {
-//    game = new Gomoku();
     _img[0] = IMG_Load("assets/playerOne.png");
     _img[1] = IMG_Load("assets/playerTwo.png");
     _img[2] = IMG_Load("assets/fiveActive.png");
@@ -15,7 +14,6 @@ Graphic::Graphic() {
 }
 
 Graphic::~Graphic() {
-//    delete game;
 }
 
 int Graphic::getKey() {
@@ -72,20 +70,6 @@ void Graphic::displayMenu(const int& active) {
     SDL_BlitSurface(deep, NULL, _screen, &posDeep);
     SDL_BlitSurface(activ, NULL, _screen, &posActive);
     SDL_Flip(_screen);
-    
-//
-//    for (int i = 0; i != 3 ; i++) {
-//        SDL_Rect rect;
-//        rect.x = 125;
-//        rect.y = 250 + i * 150;
-//        rect.h = 100;
-//        rect.w = 500;
-//        if (active == i + 1)
-//            SDL_FillRect(_screen, &rect, SDL_MapRGB(_screen->format, 255, 255, 255));
-//        else
-//            SDL_FillRect(_screen, &rect, SDL_MapRGB(_screen->format, 0, 0, 255));
-//        SDL_Flip(_screen);
-//    }
 }
 
 void Graphic::activeUpdate(int *active) {
@@ -97,16 +81,15 @@ void Graphic::activeUpdate(int *active) {
 
 
 int Graphic::launchMenu() {
-//    int i;
     int active = 1;
     int key;
     
     this->_height = 18 * BLOCK_SIZE + 200;
     this->_width = 18 * BLOCK_SIZE + 150;
-    if (SDL_Init(SDL_INIT_VIDEO) == -1)
+    if (SDL_Init(SDL_INIT_VIDEO) != 0)
         throw(MyException("launchMenu", "Can't init sdl"));
     this->_screen = SDL_SetVideoMode(_width, _height, 32, SDL_HWSURFACE);
-    SDL_WM_SetCaption("Gomoku", NULL);
+    SDL_WM_SetCaption("Gomoklax", NULL);
     while (1) {
         key = getKey();
         if (key == UP)
@@ -243,7 +226,7 @@ int Graphic::transformInCase(const t_flag& team) {
                 _clicX <= 59 + ((cpt % 19) * BLOCK_SIZE) + BLOCK_SIZE) &&
                 (_clicY >= 59 + ((cpt / 19) * BLOCK_SIZE) &&
                 _clicY <= 59 + ((cpt / 19) * BLOCK_SIZE) + BLOCK_SIZE)) {
-            updateMapRule(team, cpt);
+            updateMapRule(cpt);
             _clicX = -1;
             _clicY = -1;
             return 0;
@@ -275,10 +258,8 @@ int Graphic::verifPosition() {
 }
 
 int Graphic::verifClick(const t_flag& player) {
-//    updateMouse(player); 75 + BLOc * 18 + 16
     if (verifPosition())
         return 1;
-    //transforme les coordonné en case ciblé, vérifie si la case est dispo (règle)
     if ((transformInCase(player)) == -1) {
         return 1;        
     }
@@ -286,7 +267,6 @@ int Graphic::verifClick(const t_flag& player) {
         return 1;
     if (checkRules(player) == 1)
         return 1;
-    //ici on appel la class gomoku qui va checker avec les regles
     return (0);
 }
 

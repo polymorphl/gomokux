@@ -28,7 +28,6 @@ class Gomoku
 public:
     Gomoku();
     ~Gomoku();
-//    const std::vector<t_flag>& getMap() const {return _map;}
     int getWinner() const {return _winner;}
     Player *getPlayerOne() const {return _playerOne;}
     Player *getPlayerTwo() const {return _playerTwo;}
@@ -60,9 +59,8 @@ private:
     void checkThreeDiagonalTwo(const t_flag&, int*);
     void addJackpot(const t_flag&);
 protected:
-    void updateMapRule(const t_flag&, const int &);
+    void updateMapRule(const int &);
     int checkRules(const t_flag&);
-//    std::vector<t_flag> _map;
     int _mapRule[19][19];
     Player *_playerOne;
     Player *_playerTwo;

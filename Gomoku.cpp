@@ -3,9 +3,6 @@
 #include "Graphic.hpp"
 
 Gomoku::Gomoku() {
-//    for (int row = 0; row != 361; ++row) {
-//        _map.push_back(FREE);
-//    }
     _winner = 0;
     _ruleOfFive = true;
     _ruleOfThree = true;
@@ -17,9 +14,6 @@ Gomoku::Gomoku() {
 }
 
 void Gomoku::createMap() {
-//    for (int row = 0; row != 361 ; ++row) {
-//        _map[row] = FREE;
-//    }
     _winner = 0;
     for (int cptX = 0; cptX != 19; cptX++) {
         for (int cptY = 0; cptY != 19; cptY++) {
@@ -31,34 +25,6 @@ void Gomoku::createMap() {
 Gomoku::~Gomoku() {
 
 }
-
-/*
- * 
- * plateau
- * 
- * 18 * 18 case
- * -> 19 possibilité
- * 
- * case 4
- * y = 0 = 4 / 19
- * x = 4 = 4 % 19 
- 0000000000000000000
- 0000000000000000000
- 0000000000000000000
- 0000000000000000000
- 0000000000100000000
- 0000000000100000000
- 0000000111110000000
- 0000000000200000000
- 0000000000100000000
- 0000000000000000000
- 0000000000000000000
- 0000000000000000000
- 0000000000000000000
- 0000000000000000000
- 0000000000000000000
- 0000000000000000000
- */
 
 int Gomoku::canIEat(const int& beFree, const int& beTeam, const int& beInvert, const t_flag& team) {
     if (_mapRule[beFree / 19][beFree % 19] != FREE) {
@@ -123,7 +89,6 @@ int Gomoku::checkWinVertical(const int& y, const int& x, const t_flag& team) {
     }
     if (cpt <= 5)
         return 1;
-//    return 0 si gagne;
     return 0;
 }
 
@@ -147,7 +112,6 @@ int Gomoku::checkWinHorizontal(const int& y, const int& x, const t_flag& team) {
     }
     if (cpt <= 5)
         return 1;
-//    return 0 si gagne;
     return 0;
 }
 
@@ -171,7 +135,6 @@ int Gomoku::checkWinDiagonalOne(const int& y, const int& x, const t_flag& team) 
     }
     if (cpt <= 5)
         return 1;
-    //    return 0 si gagne;
     return 0;
 }
 
@@ -195,7 +158,6 @@ int Gomoku::checkWinDiagonalTwo(const int& y, const int& x, const t_flag& team) 
     }
     if (cpt <= 5)
         return 1;
-    //    return 0 si gagne;
     return 0;
 }
 
@@ -213,8 +175,6 @@ int Gomoku::launchWatch(const int& y, const int& x, const t_flag& team) {
 }
 
 int Gomoku::checkWin(const t_flag& team) {
-    //return 0 si gagne
-
     for (int i = 0; i != 19; i++) {
         for (int j = 0; j != 19; j++) {
             if (_mapRule[i][j] == team) {
@@ -223,9 +183,6 @@ int Gomoku::checkWin(const t_flag& team) {
             }
         }
     }
-//    if (!checkWinVertical(team) || !checkWinHorizontal(team) ||
-//            !checkWinDiagonalOne(team) || !checkWinDiagonalTwo(team))
-//        return 0;
     if (team == TEAM_1 && _playerOne->getNbPion() >= 10)
         return 0;
     if (team == TEAM_2 && _playerTwo->getNbPion() >= 10)
@@ -233,11 +190,9 @@ int Gomoku::checkWin(const t_flag& team) {
     return 1;
 }
 
-void Gomoku::updateMapRule(const t_flag& team, const int& coord) {
-    (void)team;
+void Gomoku::updateMapRule(const int& coord) {
     _playedX = coord % 19;
     _playedY = coord / 19;
-  //  _mapRule[_playedY][_playedX] = team;
 }
 
 t_flag Gomoku::invertTeam(const t_flag& team) {
@@ -404,7 +359,6 @@ int Gomoku::ruleOfThree(const t_flag& team) {
 }
 
 int Gomoku::checkRules(const t_flag& team) {
-//    updateMapRule(team, coord);
     if (_ruleOfThree && ruleOfThree(team))
         return 1;
     checkEat(team);
@@ -418,8 +372,6 @@ int Gomoku::checkRules(const t_flag& team) {
 int Gomoku::createPlayer(const int& choice)
 {
     if (choice != 1)
-//    if (choice == -1)
-        //return choice;
         return -1;
     if (choice == 1) {
         _playerOne = new Player(HUMAN);
