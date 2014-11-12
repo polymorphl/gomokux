@@ -131,8 +131,8 @@ void Graphic::drawPawn() {
     int nbPion;
     int cpt = 0;
     
-    nbPion = getNbPion() + 2;
-    SDL_Rect position[nbPion];    
+    nbPion = getNbPion();
+    SDL_Rect position[nbPion * 2]; 
     for (int y = 0; y != 19; y++) {
         for (int x = 0; x != 19; x++) {
             if (_mapRule[y][x] == TEAM_1) {
@@ -304,5 +304,4 @@ void Graphic::launchGame() {
         activPlayer = invertTeam(activPlayer);
         SDL_Delay(DELAY);
     }
-    std::cout << "Winner equipe " << _winner << std::endl;
 }

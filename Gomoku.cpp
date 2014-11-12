@@ -364,7 +364,7 @@ int Gomoku::checkRules(const t_flag& team) {
     checkEat(team);
     _mapRule[_playedY][_playedX] = team;
     if (checkWin(team))
-        return -1;
+      return -1;
     _winner = team;
     return 0;
 }
@@ -387,8 +387,8 @@ int Gomoku::createPlayer(const int& choice)
 int Gomoku::getNbPion() const {
     int nbPion = 0;
     
-    for (int i = 0; i != 18; i++) {
-        for (int j = 0; j != 18; j++) {
+    for (int i = 0; i != 19; i++) {
+        for (int j = 0; j != 19; j++) {
             if (_mapRule[i][j] != FREE)
                 nbPion++;
         }
