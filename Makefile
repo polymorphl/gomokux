@@ -1,12 +1,9 @@
 ##
-## Makefile for nibbler in /home/nadali_t/local/tek2/c++/cpp_nibbler
+## Makefile for gomoku in /home/rendu/gomokux
 ## 
-## Made by nadalie thomas
-## Login   <nadali_t@epitech.net>
+## Made by bort benjamin
+## Login   <bort_b@epitech.net>
 ## 
-## Started on  Fri Apr  4 14:08:24 2014 nadalie thomas
-## Last update Sun Apr  6 20:49:13 2014 nadalie thomas
-##
 
 NAME	= gomoku
 
