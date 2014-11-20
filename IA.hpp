@@ -1,20 +1,21 @@
 #ifndef IA_HPP_
 # define IA_HPP_
 
-#include <cmath>
+#include "LuaCommunication.hpp"
 
 class		IA
 {
 public:
-  IA();
+  IA(int team);
   ~IA();
 
-  void	update();
-  void	pushEntitie(int x, int y, int *cnt, int aggro);
-  int	  getResultScript(const char * fileName);
+  int	update(int map[19][19], bool three, bool five);
+  void	pushEntitie();
+  int	getResultScript(const char *fileName);
 
 private:
   LuaCommunication _lua;
+  int team;
 };
 
 #endif

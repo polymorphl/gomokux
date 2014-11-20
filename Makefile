@@ -11,13 +11,15 @@ SRCS	= Graphic.cpp \
 	  Gomoku.cpp \
 	  Player.cpp \
 	  Exception.cpp \
+	  IA.cpp \
+	  LuaCommunication.cpp \
 	  main.cpp
 
 OBJS	= $(SRCS:.cpp=.o)
 
 CXX	= g++ -o
 
-LDFLAGS	= -lSDL -lSDL_image -ldl
+LDFLAGS	= -lSDL -lSDL_image -ldl -llua
 
 CXXFLAGS	= -Wall -Werror -Wextra
 

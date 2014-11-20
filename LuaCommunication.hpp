@@ -1,7 +1,10 @@
 #ifndef LUACOMMUNICATION_HPP_
 # define LUACOMMUNICATION_HPP__
 
-# include <lua.h>
+#include "ai/lua-5.2.3/src/lua.hpp"
+// #include "ai/lua-5.2.3/src/lualib.h"
+// #include "ai/lua-5.2.3/src/lauxlib.h"
+
 # include <iostream>
 # include <sstream>
 
