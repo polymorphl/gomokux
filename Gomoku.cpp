@@ -366,12 +366,13 @@ int Gomoku::checkRules(const t_flag& team) {
     if (checkWin(team))
       return -1;
     _winner = team;
+    std::cout << "Winner equipe " << _winner << std::endl;
     return 0;
 }
 
 int Gomoku::createPlayer(const int& choice)
 {
-    if (choice != 1)
+    if (choice == 3 || choice == -1)
         return -1;
     if (choice == 1) {
         _playerOne = new Player(HUMAN);

@@ -19,7 +19,7 @@ OBJS	= $(SRCS:.cpp=.o)
 
 CXX	= g++ -o
 
-LDFLAGS	= -lSDL -lSDL_image -ldl -llua
+LDFLAGS	= -llua -lSDL -lSDL_image -ldl
 
 CXXFLAGS	= -Wall -Werror -Wextra
 

@@ -257,16 +257,23 @@ int Graphic::verifPosition() {
     return 1;
 }
 
+int Graphic::prepareCheckRule(const t_flag& player) {
+  if (_playedX < 0 || _playedY < 0)
+    return 1;
+  if (_mapRule[_playedY][_playedX] != FREE)
+    return 1;
+  if (checkRules(player) == 1)
+    return 1;
+}
+
 int Graphic::verifClick(const t_flag& player) {
     if (verifPosition())
         return 1;
     if ((transformInCase(player)) == -1) {
         return 1;        
     }
-    if (_mapRule[_playedY][_playedX] != FREE)
-        return 1;
-    if (checkRules(player) == 1)
-        return 1;
+    if (prepareCheckRule(player) == 1)
+      return 1;
     return (0);
 }
 
@@ -284,23 +291,48 @@ int Graphic::catchClick() {
     return -1;
 }
 
+int Graphic::checkPresentPlayer(const int& activ) {
+  if (activ == TEAM_1 && this->_playerOne->getPlayerType() == IA)
+    return IA;
+  if (activ == TEAM_2 && this->_playerTwo->getPlayerType() == IA)
+    return IA;
+  return HUMAN;
+}
+
 void Graphic::launchGame() {
-    int key;
+  //    int key;
     int retFlag;
+    int ia;
     t_flag activPlayer = TEAM_1;
     
     while (this->_winner == 0) {
         drawSquare();
-        key = getKey();
-        if (key == ESCAPE)
-            return;
-        while (verifClick(activPlayer)) {
-            _clicX = -1;
-            _clicY = -1;
+	//	key = getKey();
+        //if (key == ESCAPE)
+        //    return;
+	_playedX = -1;
+	_playedY = -1;
+      	if (checkPresentPlayer(activPlayer) == HUMAN) {
+	  std::cout << "Le joueur joue" << std::endl;
+	  while (verifClick(activPlayer)) {
             retFlag = catchClick();
             if (retFlag == ESCAPE)
-                return;
-        }
+	      return;
+	  }
+	}
+	else {
+	  std::cout << "IA joue" << std::endl;
+	  while (prepareCheckRule(activPlayer) == 1) {
+	    ia = -20;
+	    std::cout << "L'ia boucle" << std::endl;
+	    //	    ia = update(this->_mapRule, _ruleOfThree, _ruleOfFive);
+	    _playedX = ia % 19;
+	    _playedY = ia / 19;
+            retFlag = catchClick();
+            if (retFlag == ESCAPE)
+	      return;
+	  }
+	}
         activPlayer = invertTeam(activPlayer);
         SDL_Delay(DELAY);
     }

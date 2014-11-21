@@ -43,6 +43,8 @@ private:
     int catchClick();
     int transformInCase(const t_flag&);
     void updateMouse(const t_flag&);
+  int checkPresentPlayer(const int&);
+  int prepareCheckRule(const t_flag&);
     SDL_Event *_event;
     int _height;
     int _width;

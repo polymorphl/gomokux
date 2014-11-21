@@ -17,6 +17,7 @@ public:
     Player(const t_tplayer t);
     ~Player();
     int getNbPion()const {return nbPion;}
+  int getPlayerType() const {return playerType;}
     void addPion();
 private:
     t_tplayer playerType;
