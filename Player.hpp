@@ -9,7 +9,7 @@
 #define	PLAYER_HPP
 
 enum t_tplayer {
-    HUMAN, IA
+    HUMAN, CPT
 };
 
 class Player {

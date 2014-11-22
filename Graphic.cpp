@@ -292,10 +292,10 @@ int Graphic::catchClick() {
 }
 
 int Graphic::checkPresentPlayer(const int& activ) {
-  if (activ == TEAM_1 && this->_playerOne->getPlayerType() == IA)
-    return IA;
-  if (activ == TEAM_2 && this->_playerTwo->getPlayerType() == IA)
-    return IA;
+  if (activ == TEAM_1 && this->_playerOne->getPlayerType() == CPT)
+    return CPT;
+  if (activ == TEAM_2 && this->_playerTwo->getPlayerType() == CPT)
+    return CPT;
   return HUMAN;
 }
 
@@ -323,9 +323,9 @@ void Graphic::launchGame() {
 	else {
 	  std::cout << "IA joue" << std::endl;
 	  while (prepareCheckRule(activPlayer) == 1) {
-	    ia = -20;
+	    //	    ia = -20;
 	    std::cout << "L'ia boucle" << std::endl;
-	    //	    ia = update(this->_mapRule, _ruleOfThree, _ruleOfFive);
+	    ia = _ia->update(_mapRule, _ruleOfThree, _ruleOfFive);
 	    _playedX = ia % 19;
 	    _playedY = ia / 19;
             retFlag = catchClick();

@@ -1,6 +1,6 @@
 
 #include "Gomoku.hpp"
-#include "Graphic.hpp"
+//#include "Graphic.hpp"
 
 Gomoku::Gomoku() {
     _winner = 0;
@@ -380,7 +380,8 @@ int Gomoku::createPlayer(const int& choice)
     }
     else {
         _playerOne = new Player(HUMAN);
-        _playerTwo = new Player(IA);        
+        _playerTwo = new Player(CPT);        
+	_ia = new IA(2);
     }
     return choice;
 }

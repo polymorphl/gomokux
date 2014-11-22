@@ -11,8 +11,12 @@ IA::~IA()
 
 int	IA::update(int map[19][19], bool three, bool five)
 {
+  (void)map;
+  (void)three;
+  (void)five;
   //   // le push entitie
-  return (getResultScript("ai/main.lua"));
+  //  return (getResultScript("ai/main.lua"));
+  return -20;
 }
 
 void	IA::pushEntitie()
