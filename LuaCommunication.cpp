@@ -44,6 +44,7 @@ void	LuaCommunication::executeLua(const char *name)
       	std::cout << lua_tostring(_luaState, -1) << std::endl;
       	lua_pop(_luaState, 1);
       }
+
 }
 
 lua_State* LuaCommunication::getState() const
@@ -65,10 +66,11 @@ int LuaCommunication::getDatas()
       if (lua_type(_luaState, lua_gettop(_luaState)) == LUA_TNUMBER)
       	{
       	  res = lua_tonumber(_luaState, lua_gettop(_luaState));
+      	  std::cout << "Script return [" << res << "]" << std::endl;
       	  lua_pop(_luaState, 1);
       	}
       else
-      	std::cout << "Lua error : script don't return number." << std::endl;
+          std::cerr << "Lua error : script doesn't return number." << std::endl;
     }
   return (res);
 }
