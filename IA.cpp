@@ -12,8 +12,7 @@ IA::~IA()
 int	IA::update(int map[19][19], bool three, bool five)
 {
   //   // le push entitie
-  // int res = getResultScript("ai/main.lua");
-  return (0);
+  return (getResultScript("ai/main.lua"));
 }
 
 void	IA::pushEntitie()
@@ -23,11 +22,7 @@ void	IA::pushEntitie()
 
 int	IA::getResultScript(const char *fileName)
 {
-  // _lua.pushStringInt("orientation", orient);
-  // _lua.pushStringInt("bomb_range", 4);
-  // _lua.pushStringInt("level", _level);
-  // _lua.pushStringInt("aggro", aggro);
-  // _lua.pushSetGlobal("arg");
-  // _lua.executeLua(fileName);
-  // return (_lua.getDatas());
+  _lua.pushSetGlobal("arg");
+  _lua.executeLua(fileName);
+  return (_lua.getDatas());
 }
