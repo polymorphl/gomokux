@@ -1,8 +1,8 @@
-dofile("utils/bool.lua")
-dofile("utils/display.lua")
-dofile("utils/getters.lua")
-dofile("utils/parse.lua")
-dofile("utils/utils.lua")
+dofile("ai/utils/display.lua")
+dofile("ai/utils/bool.lua")
+dofile("ai/utils/getters.lua")
+dofile("ai/utils/parse.lua")
+dofile("ai/utils/utils.lua")
 
 -- begin
 
@@ -14,13 +14,10 @@ NOWAY = 4
 ME = 0
 
 function min_max()
-	return 50
 end
 
 function ai()
-	ME = arg["team"]
-	map = construct_map(arg["map"])
-	print_tab();
+	return 50
 end
 
 return ai()
