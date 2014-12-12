@@ -14,7 +14,6 @@
 #include <sstream>
 #include "Exception.hpp"
 #include "Player.hpp"
-#include "IA.hpp"
 
 enum t_flag {
     FREE, TEAM_1, TEAM_2
@@ -65,7 +64,6 @@ protected:
     int _mapRule[19][19];
     Player *_playerOne;
     Player *_playerTwo;
-  IA *_ia;
     int _winner;
     int _playedX;
     int _playedY;

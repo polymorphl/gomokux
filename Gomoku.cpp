@@ -1,6 +1,6 @@
 
 #include "Gomoku.hpp"
-//#include "Graphic.hpp"
+#include "Graphic.hpp"
 
 Gomoku::Gomoku() {
     _winner = 0;
@@ -364,9 +364,9 @@ int Gomoku::checkRules(const t_flag& team) {
     checkEat(team);
     _mapRule[_playedY][_playedX] = team;
     if (checkWin(team))
-      return -1;
+        return -1;
+    std::cout << "Winner equipe " << team << std::endl;
     _winner = team;
-    std::cout << "Winner equipe " << _winner << std::endl;
     return 0;
 }
 
@@ -379,9 +379,9 @@ int Gomoku::createPlayer(const int& choice)
         _playerTwo = new Player(HUMAN);
     }
     else {
+        std::cout << "humain ia" << std::endl;
         _playerOne = new Player(HUMAN);
-        _playerTwo = new Player(CPT);        
-	_ia = new IA(2);
+        _playerTwo = new Player(IA);        
     }
     return choice;
 }
@@ -389,8 +389,8 @@ int Gomoku::createPlayer(const int& choice)
 int Gomoku::getNbPion() const {
     int nbPion = 0;
     
-    for (int i = 0; i != 19; i++) {
-        for (int j = 0; j != 19; j++) {
+    for (int i = 0; i != 18; i++) {
+        for (int j = 0; j != 18; j++) {
             if (_mapRule[i][j] != FREE)
                 nbPion++;
         }

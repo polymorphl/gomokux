@@ -9,7 +9,7 @@
 #define	PLAYER_HPP
 
 enum t_tplayer {
-    HUMAN, CPT
+    HUMAN, IA
 };
 
 class Player {
@@ -17,7 +17,7 @@ public:
     Player(const t_tplayer t);
     ~Player();
     int getNbPion()const {return nbPion;}
-  int getPlayerType() const {return playerType;}
+    int getPlayerType() const {return playerType;}
     void addPion();
 private:
     t_tplayer playerType;

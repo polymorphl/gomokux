@@ -131,8 +131,8 @@ void Graphic::drawPawn() {
     int nbPion;
     int cpt = 0;
     
-    nbPion = getNbPion();
-    SDL_Rect position[nbPion * 2]; 
+    nbPion = getNbPion() + 2;
+    SDL_Rect position[nbPion];    
     for (int y = 0; y != 19; y++) {
         for (int x = 0; x != 19; x++) {
             if (_mapRule[y][x] == TEAM_1) {
@@ -220,7 +220,7 @@ void Graphic::drawSquare() {
     SDL_Flip(_screen);
 }
 
-int Graphic::transformInCase(const t_flag& team) {
+int Graphic::transformInCase() {
     for (int cpt = 0; cpt != 19*19; cpt++) {
         if ((_clicX >= 59 + ((cpt % 19) * BLOCK_SIZE) &&
                 _clicX <= 59 + ((cpt % 19) * BLOCK_SIZE) + BLOCK_SIZE) &&
@@ -257,23 +257,24 @@ int Graphic::verifPosition() {
     return 1;
 }
 
-int Graphic::prepareCheckRule(const t_flag& player) {
-  if (_playedX < 0 || _playedY < 0)
-    return 1;
-  if (_mapRule[_playedY][_playedX] != FREE)
-    return 1;
-  if (checkRules(player) == 1)
-    return 1;
+int Graphic::preparCheckRule(const t_flag& player) {
+    if (_playedX < 0 || _playedY < 0)
+        return 1;
+    if (_mapRule[_playedY][_playedX] != FREE)
+        return 1;
+    if (checkRules(player) == 1)
+        return 1;
+    return 0;
 }
 
 int Graphic::verifClick(const t_flag& player) {
     if (verifPosition())
         return 1;
-    if ((transformInCase(player)) == -1) {
+    if ((transformInCase()) == -1) {
         return 1;        
     }
-    if (prepareCheckRule(player) == 1)
-      return 1;
+    if (preparCheckRule(player) == 1)
+        return 1;
     return (0);
 }
 
@@ -292,48 +293,51 @@ int Graphic::catchClick() {
 }
 
 int Graphic::checkPresentPlayer(const int& activ) {
-  if (activ == TEAM_1 && this->_playerOne->getPlayerType() == CPT)
-    return CPT;
-  if (activ == TEAM_2 && this->_playerTwo->getPlayerType() == CPT)
-    return CPT;
+  if (activ == TEAM_1 && this->_playerOne->getPlayerType() == IA)
+    return IA;
+  if (activ == TEAM_2 && this->_playerTwo->getPlayerType() == IA)
+    return IA;
   return HUMAN;
 }
 
 void Graphic::launchGame() {
-  //    int key;
+//    int key;
     int retFlag;
     int ia;
     t_flag activPlayer = TEAM_1;
     
     while (this->_winner == 0) {
         drawSquare();
-	//	key = getKey();
-        //if (key == ESCAPE)
-        //    return;
-	_playedX = -1;
-	_playedY = -1;
-      	if (checkPresentPlayer(activPlayer) == HUMAN) {
-	  std::cout << "Le joueur joue" << std::endl;
-	  while (verifClick(activPlayer)) {
-            retFlag = catchClick();
-            if (retFlag == ESCAPE)
-	      return;
-	  }
-	}
-	else {
-	  std::cout << "IA joue" << std::endl;
-	  while (prepareCheckRule(activPlayer) == 1) {
-	    //	    ia = -20;
-	    std::cout << "L'ia boucle" << std::endl;
-	    ia = _ia->update(_mapRule, _ruleOfThree, _ruleOfFive);
-	    _playedX = ia % 19;
-	    _playedY = ia / 19;
-            retFlag = catchClick();
-            if (retFlag == ESCAPE)
-	      return;
-	  }
-	}
+//        key = getKey();
+//        if (key == ESCAPE)
+//            return;
+//        _playedX = -1;
+//        _playedY = -1;
+        if (checkPresentPlayer(activPlayer) == HUMAN) {
+            std::cout << "humain joue" << std::endl;
+            while (verifClick(activPlayer)) {
+//                _clicX = -1;
+//                _clicY = -1;
+                retFlag = catchClick();
+                if (retFlag == ESCAPE)
+                    return;
+            }            
+        }
+        else {
+            std::cout << "ia joue" << std::endl;
+            while (preparCheckRule(activPlayer) == 1) {
+                ia = -20;
+//                ia = update(_mapRule, _ruleOfThree, _ruleOfFive);
+                retFlag = catchClick();
+                if (retFlag == ESCAPE)
+                    return;
+                std::cout << "ia boucle" << std::endl;
+                _playedX = ia % 19;
+                _playedY = ia / 19;
+            }
+        }
         activPlayer = invertTeam(activPlayer);
         SDL_Delay(DELAY);
     }
+    std::cout << "Winner equipe " << _winner << std::endl;
 }

@@ -41,10 +41,10 @@ private:
     int verifPosition();
     bool inversBool(const bool &);
     int catchClick();
-    int transformInCase(const t_flag&);
+    int transformInCase();
     void updateMouse(const t_flag&);
-  int checkPresentPlayer(const int&);
-  int prepareCheckRule(const t_flag&);
+    int checkPresentPlayer(const int &);
+    int preparCheckRule(const t_flag&);
     SDL_Event *_event;
     int _height;
     int _width;
