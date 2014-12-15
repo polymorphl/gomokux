@@ -32,10 +32,20 @@ uchar	get_in(uchar map, uchar pos)
 	return (b >>= dec[pos] + (pos * 2));
 }
 
+// dans le bit ->
+// rangée : 3  2  1  0
+// octet  : 00 00 00 00
+
 int main(int argc, char const *argv[])
 {
-	if (get_in(set_in(128, 2, 1), 3) & 2) {
+	uchar mask = 128; // <- 10 00 00 00
+	uchar set = set_in(mask, 2, 1); // je set à la rangée 2 la valeur 1: 10 >01< 00 00
+	uchar get = get_in(set, 3); // je get la valeur à la rangée 3: >10< 01 00 00
+
+	if (get & 2) { // si get == 2 alors 10 & 10 == 1 donc ca match
 		printf("ca match !\n");
+	} else {
+		printf("ca match pas !\n");
 	}
 	return 0;
 }
