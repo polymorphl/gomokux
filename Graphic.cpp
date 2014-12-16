@@ -258,12 +258,15 @@ int Graphic::verifPosition() {
 }
 
 int Graphic::preparCheckRule(const t_flag& player) {
+    //verification a revoir pour les mask
     if (_playedX < 0 || _playedY < 0)
         return 1;
     if (_mapRule[_playedY][_playedX] != FREE)
         return 1;
-    if (checkRules(player) == 1)
+    if (checkRules(player) == 1) {
+        _mapRule[_playedY][_playedX] = TRY;
         return 1;
+    }
     return 0;
 }
 
@@ -300,6 +303,15 @@ int Graphic::checkPresentPlayer(const int& activ) {
   return HUMAN;
 }
 
+void Graphic::clearMapTry() {
+    for (int y = 0; y < 19; y++) {
+        for (int x = 0; x < 19; x++) {
+            if (_mapRule[y][x] == TRY)
+                _mapRule[y][x] = FREE;
+        }
+    }
+}
+
 void Graphic::launchGame() {
 //    int key;
     int retFlag;
@@ -326,8 +338,12 @@ void Graphic::launchGame() {
         else {
             std::cout << "ia joue" << std::endl;
             while (preparCheckRule(activPlayer) == 1) {
-                ia = -20;
-//                ia = update(_mapRule, _ruleOfThree, _ruleOfFive);
+	      //	                      ia = -20;
+	      if (activPlayer == TEAM_1)
+		ia = _playerOne->_ai.update(_mapRule, _ruleOfThree, ruleOfFive);
+	      else
+		ia = _playerTwo->_ai.update(_mapRule, _ruleOfThree, ruleOfFive);
+
                 retFlag = catchClick();
                 if (retFlag == ESCAPE)
                     return;
@@ -335,6 +351,7 @@ void Graphic::launchGame() {
                 _playedX = ia % 19;
                 _playedY = ia / 19;
             }
+            clearMapTry();
         }
         activPlayer = invertTeam(activPlayer);
         SDL_Delay(DELAY);

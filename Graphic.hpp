@@ -45,6 +45,7 @@ private:
     void updateMouse(const t_flag&);
     int checkPresentPlayer(const int &);
     int preparCheckRule(const t_flag&);
+    void clearMapTry();
     SDL_Event *_event;
     int _height;
     int _width;

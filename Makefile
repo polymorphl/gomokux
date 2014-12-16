@@ -11,7 +11,7 @@ SRCS	= Graphic.cpp \
 	  Gomoku.cpp \
 	  Player.cpp \
 	  Exception.cpp \
-	  IA.cpp \
+	  AI.cpp \
 	  LuaCommunication.cpp \
 	  main.cpp
 

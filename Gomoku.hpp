@@ -16,7 +16,7 @@
 #include "Player.hpp"
 
 enum t_flag {
-    FREE, TEAM_1, TEAM_2
+    FREE = 1, TEAM_1, TEAM_2, TRY
 };
 
 enum t_direction {
@@ -72,4 +72,3 @@ protected:
 };
 
 #endif	/* GOMOKU_HPP */
-

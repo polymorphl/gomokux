@@ -1,13 +1,13 @@
-#ifndef IA_HPP_
-# define IA_HPP_
+#ifndef AI_HPP_
+# define AI_HPP_
 
 #include "LuaCommunication.hpp"
 
-class		IA
+class		AI
 {
 public:
-  IA(int team);
-  ~IA();
+  AI(int team);
+  ~AI();
 
   int	update(int map[19][19], bool three, bool five);
   void	pushEntitie();

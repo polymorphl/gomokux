@@ -15,9 +15,10 @@ Gomoku::Gomoku() {
 
 void Gomoku::createMap() {
     _winner = 0;
+    //map a modif
     for (int cptX = 0; cptX != 19; cptX++) {
         for (int cptY = 0; cptY != 19; cptY++) {
-            _mapRule[cptX][cptY] = 0;
+            _mapRule[cptX][cptY] = 1;
         }
     }    
 }
@@ -191,6 +192,7 @@ int Gomoku::checkWin(const t_flag& team) {
 }
 
 void Gomoku::updateMapRule(const int& coord) {
+    //modif de playedX et playedY
     _playedX = coord % 19;
     _playedY = coord / 19;
 }
@@ -375,13 +377,13 @@ int Gomoku::createPlayer(const int& choice)
     if (choice == 3 || choice == -1)
         return -1;
     if (choice == 1) {
-        _playerOne = new Player(HUMAN);
-        _playerTwo = new Player(HUMAN);
+      _playerOne = new Player(HUMAN, TEAM_1);
+        _playerTwo = new Player(HUMAN, TEAM_2);
     }
     else {
         std::cout << "humain ia" << std::endl;
-        _playerOne = new Player(HUMAN);
-        _playerTwo = new Player(IA);        
+        _playerOne = new Player(HUMAN, TEAM_1);
+        _playerTwo = new Player(IA, TEAM_2);
     }
     return choice;
 }

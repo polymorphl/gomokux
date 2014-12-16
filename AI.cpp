@@ -1,15 +1,15 @@
-#include "IA.hpp"
+#include "AI.hpp"
 
-IA::IA(int team)
+AI::AI(int team)
   : _lua(), team(team)
 {
 }
 
-IA::~IA()
+AI::~AI()
 {
 }
 
-int	IA::update(int map[19][19], bool three, bool five)
+int	AI::update(int map[19][19], bool three, bool five)
 {
   (void)map;
   (void)three;
@@ -18,12 +18,12 @@ int	IA::update(int map[19][19], bool three, bool five)
    return (getResultScript("ai/main.lua"));
 }
 
-void	IA::pushEntitie()
+void	AI::pushEntitie()
 {
   // _lua.pushCreateTable(((aggro * 2) * (aggro * 2) * 4) + 9);
 }
 
-int	IA::getResultScript(const char *fileName)
+int	AI::getResultScript(const char *fileName)
 {
   // doit allouer la stack
   // _lua.pushSetGlobal("arg");

@@ -8,13 +8,15 @@
 #ifndef PLAYER_HPP
 #define	PLAYER_HPP
 
+#include "AI.hpp"
+
 enum t_tplayer {
     HUMAN, IA
 };
 
 class Player {
 public:
-    Player(const t_tplayer t);
+  Player(const t_tplayer t, const int& team);
     ~Player();
     int getNbPion()const {return nbPion;}
     int getPlayerType() const {return playerType;}
@@ -22,6 +24,8 @@ public:
 private:
     t_tplayer playerType;
     int nbPion;
+  int team;
+  AI *_ai;
 };
 
 #endif	/* PLAYER_HPP */
