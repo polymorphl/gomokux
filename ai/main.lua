@@ -3,6 +3,8 @@ dofile("ai/utils/bool.lua")
 dofile("ai/utils/getters.lua")
 dofile("ai/utils/parse.lua")
 dofile("ai/utils/utils.lua")
+dofile("ai/utils/display.lua")
+dofile("ai/map.lua")
 
 -- begin
 
@@ -17,7 +19,10 @@ function min_max()
 end
 
 function ai()
-	return 50
+	local map = construct_map()
+	display_2dtab(map);
+
+	return -20
 end
 
 return ai()

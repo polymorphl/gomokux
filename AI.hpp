@@ -10,7 +10,7 @@ public:
   ~AI();
 
   int	update(int map[19][19], bool three, bool five);
-  void	pushEntitie();
+  void	pushEntitie(int map[19][19]);
   int	getResultScript(const char *fileName);
 
 private:
