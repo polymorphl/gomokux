@@ -340,9 +340,9 @@ void Graphic::launchGame() {
             while (preparCheckRule(activPlayer) == 1) {
 	      //	                      ia = -20;
 	      if (activPlayer == TEAM_1)
-		ia = _playerOne->_ai.update(_mapRule, _ruleOfThree, ruleOfFive);
+		ia = _playerOne->_ai->update(_mapRule, _ruleOfThree, _ruleOfFive);
 	      else
-		ia = _playerTwo->_ai.update(_mapRule, _ruleOfThree, ruleOfFive);
+		ia = _playerTwo->_ai->update(_mapRule, _ruleOfThree, _ruleOfFive);
 
                 retFlag = catchClick();
                 if (retFlag == ESCAPE)

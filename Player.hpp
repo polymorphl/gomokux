@@ -21,11 +21,13 @@ public:
     int getNbPion()const {return nbPion;}
     int getPlayerType() const {return playerType;}
     void addPion();
+  AI *_ai;
 private:
     t_tplayer playerType;
     int nbPion;
   int team;
-  AI *_ai;
+protected:
+
 };
 
 #endif	/* PLAYER_HPP */
