@@ -12,6 +12,7 @@ SRCS	= Graphic.cpp \
 	  Player.cpp \
 	  Exception.cpp \
 	  AI.cpp \
+	  Rules.cpp \
 	  LuaCommunication.cpp \
 	  main.cpp
 

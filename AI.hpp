@@ -1,21 +1,30 @@
-#ifndef AI_HPP_
-# define AI_HPP_
+/* 
+ * File:   AI.hpp
+ * Author: benjamin
+ *
+ * Created on December 19, 2014, 1:11 PM
+ */
 
-#include "LuaCommunication.hpp"
+#ifndef AI_HPP
+#define	AI_HPP
 
-class		AI
-{
+#include "Rules.hpp"
+
+class AI : public Rules {
 public:
-  AI(int team);
-  ~AI();
-
-  int	update(int map[19][19], bool three, bool five);
-  void	pushEntitie(int map[19][19]);
-  int	getResultScript(const char *fileName);
-
+    AI();
+    ~AI();
+    int launchAI(const int tab[19][19], const t_flag&);
+    
 private:
-  LuaCommunication _lua;
-  int team;
+    int minMax(const t_flag&);
+    int min(const t_flag&, const int&);
+    int max(const t_flag&, const int&);
+    int eval(const t_flag&);
+    int verifWin();
+    int howManyCoin(const int&, const int&, const t_flag&);
+    int higher(const int&, const int&);
 };
 
-#endif
+#endif	/* AI_HPP */
+

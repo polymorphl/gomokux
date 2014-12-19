@@ -9,6 +9,7 @@
 
 int main() {
     try {
+        srand(time(NULL));
         Graphic graph;
         graph.handleGame();
     }

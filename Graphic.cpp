@@ -62,7 +62,7 @@ void Graphic::displayMenu(const int& active) {
     SDL_Surface *activ = IMG_Load(oss.str().c_str());
     SDL_Rect posDeep;
     SDL_Rect posActive;
-
+    
     posDeep.x = 0;
     posDeep.y = 0;
     posActive.x = 125;
@@ -83,7 +83,7 @@ void Graphic::activeUpdate(int *active) {
 int Graphic::launchMenu() {
     int active = 1;
     int key;
-
+    
     this->_height = 18 * BLOCK_SIZE + 200;
     this->_width = 18 * BLOCK_SIZE + 150;
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -102,13 +102,13 @@ int Graphic::launchMenu() {
             return -1;
         activeUpdate(&active);
         displayMenu(active);
-        SDL_Delay(DELAY);
+        SDL_Delay(DELAY);        
     }
 }
 
 void Graphic::drawLine() {
     SDL_Rect rect[19 + 19];
-
+    
     for (int i = 0; i != 19 + 19; i++) {
         if (i <= 18) {
             rect[i].x = 75;
@@ -120,7 +120,7 @@ void Graphic::drawLine() {
             rect[i].x = 75 + ((i - 19) * BLOCK_SIZE);
             rect[i].y = 75;
             rect[i].w = 1;
-            rect[i].h = BLOCK_SIZE * 18;
+            rect[i].h = BLOCK_SIZE * 18;            
         }
         SDL_FillRect(_screen, &(rect[i]), SDL_MapRGB(_screen->format, 0, 0, 0));
     }
@@ -130,18 +130,18 @@ void Graphic::drawLine() {
 void Graphic::drawPawn() {
     int nbPion;
     int cpt = 0;
-
+    
     nbPion = getNbPion() + 2;
-    SDL_Rect position[nbPion];
+    SDL_Rect position[nbPion];    
     for (int y = 0; y != 19; y++) {
         for (int x = 0; x != 19; x++) {
-            if (_mapRule[y][x] == TEAM_1) {
+            if (_map[y][x] == TEAM_1) {
                 position[cpt].x = 59 + (((y * 19 + x) % 19) * BLOCK_SIZE);
                 position[cpt].y = 59 + (((y * 19 + x) / 19) * BLOCK_SIZE);
                 SDL_BlitSurface(_img[0], NULL, _screen, &position[cpt]);
                 cpt++;
             }
-            if (_mapRule[y][x] == TEAM_2) {
+            if (_map[y][x] == TEAM_2) {
                 position[cpt].x = 59 + (((y * 19 + x) % 19) * BLOCK_SIZE);
                 position[cpt].y = 59 + (((y * 19 + x) / 19) * BLOCK_SIZE);
                 SDL_BlitSurface(_img[1], NULL, _screen, &position[cpt]);
@@ -171,7 +171,7 @@ void Graphic::drawZoneEat() {
 void Graphic::drawEat() {
     int cpt = 0;
     int nbPion = _playerOne->getNbPion() + _playerTwo->getNbPion();
-
+    
     SDL_Rect position[nbPion];
     drawZoneEat();
     for (int pion = 0; pion != _playerOne->getNbPion(); pion++) {
@@ -190,7 +190,7 @@ void Graphic::drawEat() {
 
 void Graphic::drawRule() {
     SDL_Rect position[2];
-
+    
     position[0].x = 230;
     position[0].y = _height - 110;
     position[1].x = 230;
@@ -202,7 +202,7 @@ void Graphic::drawRule() {
 void Graphic::drawSquare() {
     SDL_Rect desk;
     SDL_Rect deep;
-
+    
     deep.x = 0;
     deep.y = 0;
     deep.h = 18 * BLOCK_SIZE + 200;
@@ -212,7 +212,7 @@ void Graphic::drawSquare() {
     desk.y = 75;
     desk.h = 18 * BLOCK_SIZE;
     desk.w = 18 * BLOCK_SIZE;
-    SDL_FillRect(_screen, &(desk), SDL_MapRGB(_screen->format, 255, 255, 255));
+    SDL_FillRect(_screen, &(desk), SDL_MapRGB(_screen->format, 255, 255, 255));        
     drawLine();
     drawPawn();
     drawEat();
@@ -261,10 +261,10 @@ int Graphic::preparCheckRule(const t_flag& player) {
     //verification a revoir pour les mask
     if (_playedX < 0 || _playedY < 0)
         return 1;
-    if (_mapRule[_playedY][_playedX] != FREE)
+    if (_map[_playedY][_playedX] != FREE)
         return 1;
-    if (checkRules(player) == 1) {
-        _mapRule[_playedY][_playedX] = TRY;
+    if (launchJudge(player) == 1) {
+        _map[_playedY][_playedX] = TRY;
         return 1;
     }
     return 0;
@@ -274,7 +274,7 @@ int Graphic::verifClick(const t_flag& player) {
     if (verifPosition())
         return 1;
     if ((transformInCase()) == -1) {
-        return 1;
+        return 1;        
     }
     if (preparCheckRule(player) == 1)
         return 1;
@@ -306,8 +306,8 @@ int Graphic::checkPresentPlayer(const int& activ) {
 void Graphic::clearMapTry() {
     for (int y = 0; y < 19; y++) {
         for (int x = 0; x < 19; x++) {
-            if (_mapRule[y][x] == TRY)
-                _mapRule[y][x] = FREE;
+            if (_map[y][x] == TRY)
+                _map[y][x] = FREE;
         }
     }
 }
@@ -315,9 +315,13 @@ void Graphic::clearMapTry() {
 void Graphic::launchGame() {
 //    int key;
     int retFlag;
-    int ia;
+    int retIa;
     t_flag activPlayer = TEAM_1;
-
+    AI* ai;
+    
+    if (_playerOne->getPlayerType() == IA || _playerTwo->getPlayerType() == IA)
+        ai = new AI();
+    
     while (this->_winner == 0) {
         drawSquare();
 //        key = getKey();
@@ -328,27 +332,29 @@ void Graphic::launchGame() {
         if (checkPresentPlayer(activPlayer) == HUMAN) {
             std::cout << "humain joue" << std::endl;
             while (verifClick(activPlayer)) {
-//                _clicX = -1;
-//                _clicY = -1;
+                _clicX = -1;
+                _clicY = -1;
                 retFlag = catchClick();
                 if (retFlag == ESCAPE)
                     return;
-            }
+            }            
         }
         else {
             std::cout << "ia joue" << std::endl;
             while (preparCheckRule(activPlayer) == 1) {
-	      if (activPlayer == TEAM_1)
-		ia = _playerOne->_ai->update(_mapRule, _ruleOfThree, _ruleOfFive);
-	      else
-		ia = _playerTwo->_ai->update(_mapRule, _ruleOfThree, _ruleOfFive);
-
+                retIa = ai->launchAI(_map, activPlayer);
+                
+//                (void)ai;
+//	      if (activPlayer == TEAM_1)
+//		ia = _playerOne->launchIA();
+//	      else
+//		ia = _playerTwo->launchIA();
                 retFlag = catchClick();
                 if (retFlag == ESCAPE)
                     return;
                 std::cout << "ia boucle" << std::endl;
-                _playedX = ia % 19;
-                _playedY = ia / 19;
+                _playedX = retIa % 19;
+                _playedY = retIa / 19;
             }
             clearMapTry();
         }

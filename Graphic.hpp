@@ -9,6 +9,7 @@
 #define	GRAPHIC_HPP
 
 #include "Gomoku.hpp"
+#include "AI.hpp"
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 
