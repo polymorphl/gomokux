@@ -8,6 +8,8 @@ Graphic::Graphic() {
     _img[3] = IMG_Load("assets/fivePassive.png");
     _img[4] = IMG_Load("assets/threeActive.png");
     _img[5] = IMG_Load("assets/threePassive.png");
+    _img[6] = IMG_Load("assets/menuPlayerOne.png");
+    _img[7] = IMG_Load("assets/menuPlayerTwo.png");
     _event = new SDL_Event();
     _clicX = -1;
     _clicY = -1;
@@ -79,10 +81,21 @@ void Graphic::activeUpdate(int *active) {
         *active = 3;
 }
 
+int Graphic::handleClicMenu() {
+    if (_clicX >= 125 && _clicX <= 625 && _clicY < 350 && _clicY >= 250)
+        return 1;
+    if (_clicX >= 125 && _clicX <= 625 && _clicY < 500 && _clicY >= 400)
+        return 2;
+    if (_clicX >= 125 && _clicX <= 625 && _clicY < 650 && _clicY >= 550)
+        return 3;
+    
+    return 0;
+}
 
 int Graphic::launchMenu() {
     int active = 1;
     int key;
+    int retClic = 0;
     
     this->_height = 18 * BLOCK_SIZE + 200;
     this->_width = 18 * BLOCK_SIZE + 150;
@@ -96,6 +109,13 @@ int Graphic::launchMenu() {
             active--;
         if (key == DOWN)
             active++;
+        if (key == CLIC) {
+            retClic = handleClicMenu();
+            if (retClic == active)
+                return active;
+            else if (retClic != 0)
+                active = retClic;
+        }
         if (key == ENTER)
             return active;
         if (key == ESCAPE)
@@ -197,6 +217,15 @@ void Graphic::drawRule() {
     position[1].y = _height - 57;
     (_ruleOfFive) ? SDL_BlitSurface(_img[2], NULL, _screen, &position[0]) :  SDL_BlitSurface(_img[3], NULL, _screen, &position[0]);
     (_ruleOfThree) ? SDL_BlitSurface(_img[4], NULL, _screen, &position[1]) :  SDL_BlitSurface(_img[5], NULL, _screen, &position[1]);
+}
+
+void Graphic::drawCurrentPlayer(const t_flag& team) {
+    SDL_Rect current;
+    
+    current.x = 230;
+    current.y = 10;
+    (team - 2) ? SDL_BlitSurface(_img[7], NULL, _screen, &current) :  SDL_BlitSurface(_img[6], NULL, _screen, &current);
+    SDL_Flip(_screen);
 }
 
 void Graphic::drawSquare() {
@@ -325,6 +354,7 @@ void Graphic::launchGame() {
     
     while (this->_winner == 0) {
         drawSquare();
+        drawCurrentPlayer(activPlayer);
         if (checkPresentPlayer(activPlayer) == HUMAN) {
             std::cout << BLUE << "Human " << activPlayer - 1 << " play" << END << std::endl;
             while (verifClick(activPlayer)) {

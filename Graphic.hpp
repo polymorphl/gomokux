@@ -37,6 +37,8 @@ private:
     void drawPawn();
     void drawEat();
     void drawZoneEat();
+    int handleClicMenu();
+    void drawCurrentPlayer(const t_flag&);
     void drawRule();
     int verifClick(const t_flag&);
     int verifPosition();
@@ -51,7 +53,7 @@ private:
     int _height;
     int _width;
     SDL_Surface *_screen;
-    SDL_Surface *_img[6];
+    SDL_Surface *_img[8];
     SDL_Rect _mouse;
     int _clicX;
     int _clicY;
