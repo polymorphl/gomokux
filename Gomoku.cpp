@@ -11,7 +11,6 @@ Gomoku::Gomoku() {
 }
 
 void Gomoku::createMap() {
-    //map a modif
     this->setWinner(0);
     for (int cptX = 0; cptX != 19; cptX++) {
         for (int cptY = 0; cptY != 19; cptY++) {
@@ -25,7 +24,6 @@ Gomoku::~Gomoku() {
 }
 
 void Gomoku::updateMapRule(const int& coord) {
-    //modif de playedX et playedY
     _playedX = coord % 19;
     _playedY = coord / 19;
     for (int cptY = 0; cptY != 19; cptY++) {
@@ -36,8 +34,7 @@ void Gomoku::updateMapRule(const int& coord) {
 }
 
 
-int Gomoku::createPlayer(const int& choice)
-{
+int Gomoku::createPlayer(const int& choice) {
     if (choice == -1)
         return -1;
     if (choice == 1) {

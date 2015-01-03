@@ -91,11 +91,6 @@ int Rules::checkWinVertical(const int& y, const int& x, const t_flag& team) {
             break;
         }
     }
-//    if (cpt <= 5) {
-//        return cpt + 1;        
-//    }
-//    return 0;
-//    (0-5)
     
     if (cpt < 5) {
         if (verifBlock == 1)
@@ -143,7 +138,6 @@ int Rules::checkWinHorizontal(const int& y, const int& x, const t_flag& team) {
             break;
         }
     }
-//    (0-5)
     
     if (cpt < 5) {
         if (verifBlock == 1)
@@ -191,7 +185,6 @@ int Rules::checkWinDiagonalOne(const int& y, const int& x, const t_flag& team) {
             break;
         }
     }
-//    (0-5)
     
     if (cpt < 5) {
         if (verifBlock == 1)
@@ -239,22 +232,6 @@ int Rules::checkWinDiagonalTwo(const int& y, const int& x, const t_flag& team) {
             break;
         }
     }
-
-/*
- * (1 | 5) -> alignement bon
- * 0-> gagne
- * (-1 | -5) -> alignement bloque 1
- * (-6 | -10) -> alignement bloque 2
- */    
-//    (0-4)
-//    if (cpt < 5) {
-////        if (verifBlock == 1)
-////            return -3;
-//        if (verifBlock >= 2)
-//            return -2;        
-//        return cpt;
-//    }
-//    return -1;
     
     if (cpt < 5) {
         if (verifBlock == 1)
@@ -288,10 +265,6 @@ int Rules::checkWin(const t_flag& team) {
             }
         }
     }
-//    if (team == TEAM_1 && _playerOne->getNbPion() >= 10)
-//        return 0;
-//    if (team == TEAM_2 && _playerTwo->getNbPion() >= 10)
-//        return 0;
     return 1;
 }
 
@@ -471,7 +444,6 @@ t_flag Rules::invertTeam(const t_flag& team) {
 int Rules::checkRules(const t_flag& team) {
     if (_ruleOfThree && ruleOfThree(team))
         return 1;
-//    checkEat(team);
     _mapRule[_playedYRules][_playedXRules] = team;
     if (checkWin(team))
         return -1;

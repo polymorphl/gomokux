@@ -288,7 +288,6 @@ int Graphic::verifPosition() {
 }
 
 int Graphic::preparCheckRule(const t_flag& player) {
-    //verification a revoir pour les mask
     if (_playedX < 0 || _playedY < 0)
         return 1;
     if (_map[_playedY][_playedX] != FREE)

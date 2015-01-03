@@ -20,7 +20,6 @@ public:
     int getType()const {return _type;}
     int getPlayerType() const {return playerType;}
     void addPion();
-//    int launchIA();
 private:
     t_tplayer playerType;
     int nbPion;

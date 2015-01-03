@@ -1,6 +1,4 @@
 
-#include <inttypes.h>
-
 #include "AI.hpp"
 
 AI::AI(const t_ia_type& t) {
@@ -64,7 +62,6 @@ int AI::verifEat(const int& x, const int& y) {
             (x - 1 >= 0 && y - 1 >= 0 && x + 2 <= 18 && y + 2 <= 18 && !canIEat(((y - 1) * 19) + x - 1, ((y + 1) * 19) + x + 1, ((y + 2) * 19) + x + 2, team)) ||
             (x - 2 >= 0 && y + 2 <= 18 && x + 1 <= 18 && y - 1 >= 0 && !canIEat(((y - 1) * 19) + x + 1, ((y + 1) * 19) + x - 1, ((y + 2) * 19) + x - 2, team)) ||
             (x - 1 >= 0 && y + 1 <= 18 && x + 2 <= 18 && y - 2 <= 0 && !canIEat(((y + 1) * 19) + x - 1, ((y - 1) * 19) + x + 1, ((y - 2) * 19) + x + 2, team))) {
-//        std::cout << "la team " << team << " peut manger" << std::endl;
         if (team == _initTeam)
             ret = ((_nbPionTwo / 2) + 1) * 100;
         else
@@ -95,7 +92,7 @@ int AI::eval() {
     int ret = 0;
     int retEat = 0;
     int max = -1000000000;
-    //attention a verifier la gagna avec -1000 et +1000
+
     if (verifWin() == _initTeam)
         return 1000000000;        
     if (verifWin() == invertTeam(_initTeam))
@@ -124,16 +121,12 @@ int AI::verifWin() {
     if (!checkWin(TEAM_2))
         return TEAM_2;
     return 0;
-    // faudrais verifier avec les pion aussi
 }
 
 int AI::negamax(const t_flag& team, const int& profondeur) {
     int max;
     int tmp;
-    int nbEat;
-    
-    (void)nbEat;
-    //attention a eval
+
     max = eval();
     if (profondeur == 0 || verifWin() != 0)
         return max;
@@ -144,8 +137,7 @@ int AI::negamax(const t_flag& team, const int& profondeur) {
                 
                 tmp = negamax(invertTeam(team), profondeur - 1);
 
-                //verification du < >
-                if ((tmp > max) /*&& team == _initTeam) || (tmp < max && team != _initTeam)*/)
+                if ((tmp > max))
                     max = tmp;
                 _mapRule[y][x] = FREE;
             }
@@ -163,11 +155,10 @@ int AI::minMax(const t_flag& team) {
         for (int x = 0; x != 19; x++) {
             if (_mapRule[y][x] == FREE) {
                 _mapRule[y][x] = team;
-//                tmp = min(team, profondeur - 1);
                 
                 tmp = negamax(invertTeam(team), profondeur - 1);
                 
-                if (tmp > max  /*|| ( (tmp == max) && (rand()%20 == 0) ) */) {
+                if (tmp > max) {
                     max = tmp;
                     maxY = y;
                     maxX = x;
@@ -179,13 +170,6 @@ int AI::minMax(const t_flag& team) {
     return (maxY * 19) + maxX;
 }
 
-/*
- need
- *  map : good
- *  option : good
- * numero de team
- * les player ou le nombre de pion
- */
 void AI::displayInfo(const int& poid) {
     std::cout << YELLOW << "\n\n";
     std::cout << "------------------------" << std::endl;
@@ -202,7 +186,7 @@ void AI::displayInfo(const int& poid) {
 
 int AI::launchAI(const int tab[19][19], const t_flag& team, const int& pionOne, const int& pionTwo) {
     int toRet;
-    //attention a la copi de map rule
+
     for (int y = 0; y != 19; y++) {
         for (int x = 0; x != 19; x++) {
             _mapRule[y][x] = tab[y][x];

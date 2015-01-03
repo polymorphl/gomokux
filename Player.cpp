@@ -15,8 +15,3 @@ Player::~Player() {
 void Player::addPion() {
     nbPion+= 2;
 }
-
-//int Player::launchIA() {
-//    std::cout << this->_map[0][0] << std::endl;
-//    return -20;
-//}

@@ -1,12 +1,3 @@
-//
-// Exception.cpp for nibbler in /tmp/cpp_nibbler/src
-// 
-// Made by nadalie thomas
-// Login   <nadali_t@epitech.net>
-// 
-// Started on  Sun Apr  6 20:37:02 2014 nadalie thomas
-// Last update Sun Apr  6 20:37:02 2014 nadalie thomas
-//
 
 #include "Exception.hpp"
 

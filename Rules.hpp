@@ -8,11 +8,6 @@
 #ifndef RULES_HPP
 #define	RULES_HPP
 
-// GRaphic herite de Gomoku
-//Gomoku herite de Rules
-// les Player sont dans Gomoku
-// Player herite de rules
-
 #include "Player.hpp"
 #include "color.h"
 #include <iostream>

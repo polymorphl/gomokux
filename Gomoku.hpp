@@ -10,7 +10,6 @@
 
 #include "Rules.hpp"
 #include "Exception.hpp"
-//#include "Player.hpp"
 
 class Gomoku : public Rules
 {
